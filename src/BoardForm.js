@@ -4,7 +4,6 @@ import axios from "axios";
 import $ from "jquery";
 import {} from "jquery.cookie";
 axios.defaults.withCredentials = true;
-const headers = { withCredentials: true };
 
 class BoardRow extends Component {
   render() {
@@ -14,8 +13,8 @@ class BoardRow extends Component {
           <a
             href={`/board/detail/${this.props._id}`}
             onClick={(e) => {
-              e.preventDefault(); // 기본 동작 방지
-              window.location.href = `/board/detail/${this.props._id}`; // URL 변경 및 새로고침
+              e.preventDefault();
+              window.location.href = `/board/detail/${this.props._id}`;
             }}
           >
             {this.props.createdAt.substring(0, 10)}
@@ -39,51 +38,33 @@ class BoardRow extends Component {
 
 class BoardForm extends Component {
   state = {
-    boardList: []
+    boardList: [],
   };
 
   componentDidMount() {
     this.getBoardList();
   }
 
-  handleWrite = () => {
-    const send_param = {
-      headers,
-      title: "테스트 제목", // 임시 제목
-      content: "테스트 내용", // 임시 내용
-      _id: $.cookie("login_id"), // 작성자 ID
-    };
-
-    axios
-      .post(process.env.REACT_APP_LOCAL_BACKEND + "/board/write", send_param)
-      .then(() => {
-        alert("글 작성 완료");
-        this.handlePostWrite(); // 작성 후 목록 새로고침
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("글 작성 실패");
-      });
-  };
-
   getBoardList = () => {
-    const send_param = {
-      headers,
-      _id: $.cookie("login_id"),
-    };
+    const idFromCookie = $.cookie("login_id");
+
     axios
-      .post(process.env.REACT_APP_LOCAL_BACKEND + "/board/getBoardList", send_param)
+      .post(
+        `${process.env.REACT_APP_LOCAL_BACKEND}/board/getBoardList`,
+        { _id: idFromCookie },
+        { headers: { "Content-Type": "application/json" } }
+      )
       .then((returnData) => {
         let boardList;
         if (returnData.data.list.length > 0) {
           const board = returnData.data.list;
           boardList = board.map((item) => (
             <BoardRow
-              key={item._id} // MongoDB ID 사용
+              key={item._id}
               _id={item._id}
               createdAt={item.createdAt}
               title={item.title}
-            ></BoardRow>
+            />
           ));
           this.setState({
             boardList: boardList,
@@ -100,17 +81,13 @@ class BoardForm extends Component {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error("게시글 목록 가져오기 실패:", err);
       });
-  };
- 
-  handlePostWrite = () => {
-    this.getBoardList(); // 새로고침
   };
 
   render() {
     const divStyle = {
-      margin: 50
+      margin: 50,
     };
 
     return (
@@ -126,9 +103,10 @@ class BoardForm extends Component {
             <tbody>{this.state.boardList}</tbody>
           </Table>
         </div>
-        {/* 글 작성 버튼 추가 */}
         <div style={{ margin: "20px 50px" }}>
-          <button onClick={this.handleWrite}>글 작성</button>
+          <button onClick={() => (window.location.href = "/write")}>
+            글 작성
+          </button>
         </div>
       </div>
     );

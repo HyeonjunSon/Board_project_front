@@ -50,7 +50,7 @@ class LoginForm extends Component {
     };
 
     axios
-      .post(process.env.REACT_APP_LOCAL_BACKEND + "/member/join", send_param)
+      .post(`${process.env.REACT_APP_LOCAL_BACKEND}/member/Join`, send_param)
       .then((returnData) => {
         if (returnData.data.message) {
           alert(returnData.data.message);
@@ -93,7 +93,7 @@ class LoginForm extends Component {
     };
 
     axios
-      .post(process.env.REACT_APP_LOCAL_BACKEND + "/member/login", send_param)
+      .post(`${process.env.REACT_APP_LOCAL_BACKEND}/member/login`, send_param)
       .then((returnData) => {
         if (returnData.data.message) {
           $.cookie("login_id", returnData.data._id, { expires: 1 });

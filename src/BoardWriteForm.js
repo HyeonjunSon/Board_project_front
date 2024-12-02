@@ -6,13 +6,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 // Axios 기본 설정
 axios.defaults.withCredentials = true;
-const headers = { withCredentials: true };
 
 const BoardWriteForm = () => {
   const [data, setData] = useState(""); // CKEditor 데이터 상태 관리
   const boardTitleRef = useRef(null); // 제목 입력 Ref
-  const location = useLocation(); // React Router location 객체
-  const navigate = useNavigate(); // React Router navigate 함수
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // 컴포넌트가 마운트될 때 URL 쿼리 파라미터에서 title과 content를 가져옴
   useEffect(() => {
@@ -29,33 +28,30 @@ const BoardWriteForm = () => {
   const writeBoard = async () => {
     const boardTitle = boardTitleRef.current?.value;
     const boardContent = data;
-  
+
     if (!boardTitle || !boardContent) {
       alert("제목과 내용을 모두 입력해주세요.");
       return;
     }
-  
+
     const idFromCookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)login_id\s*=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
-  
-    console.log("작성 요청 데이터: ", {
-      _id: idFromCookie,
-      title: boardTitle,
-      content: boardContent,
-    });
-  
+
     const send_param = {
-      headers,
       _id: idFromCookie,
       title: boardTitle,
       content: boardContent,
     };
-  
+
     try {
-      const returnData = await axios.post(process.env.REACT_APP_LOCAL_BACKEND + "/board/write", send_param);
-      console.log("서버 응답 데이터: ", returnData.data);  // 서버 응답 확인
+      const returnData = await axios.post(
+        `${process.env.REACT_APP_LOCAL_BACKEND}/board/write`,
+        send_param,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      console.log("서버 응답 데이터: ", returnData.data); // 서버 응답 확인
       if (returnData.data.message) {
         alert(returnData.data.message);
         navigate("/");
@@ -67,9 +63,8 @@ const BoardWriteForm = () => {
       console.error("Axios 요청 에러: ", err);
       alert("서버와의 통신 중 문제가 발생했습니다.");
     }
-  };  
+  };
 
-  // CKEditor 내용 변경 이벤트 핸들러
   const onEditorChange = (evt) => {
     setData(evt.editor.getData());
   };
@@ -77,14 +72,12 @@ const BoardWriteForm = () => {
   return (
     <div style={{ margin: "50px" }}>
       <h2>글쓰기</h2>
-      {/* 제목 입력 */}
       <Form.Control
         type="text"
         placeholder="제목을 입력하세요"
         style={{ marginBottom: "10px" }}
         ref={boardTitleRef}
       />
-      {/* CKEditor */}
       <div style={{ marginBottom: "10px", border: "1px solid #ccc", padding: "10px" }}>
         <CKEditor
           initData={data || "<p>여기에 글을 작성하세요...</p>"}
@@ -96,10 +89,9 @@ const BoardWriteForm = () => {
               ["Link", "Unlink", "Undo", "Redo"]
             ],
           }}
-          onChange={onEditorChange} // 변경 시 CKEditor 데이터 업데이트
+          onChange={onEditorChange}
         />
       </div>
-      {/* 저장 버튼 */}
       <Button onClick={writeBoard} style={{ marginTop: "10px" }}>
         저장하기
       </Button>
