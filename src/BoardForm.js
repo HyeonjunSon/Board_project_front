@@ -55,7 +55,7 @@ class BoardForm extends Component {
     };
 
     axios
-      .post("http://localhost:8080/board/write", send_param)
+      .post(process.env.REACT_APP_LOCAL_BACKEND + "/board/write", send_param)
       .then(() => {
         alert("글 작성 완료");
         this.handlePostWrite(); // 작성 후 목록 새로고침
@@ -72,7 +72,7 @@ class BoardForm extends Component {
       _id: $.cookie("login_id"),
     };
     axios
-      .post("http://localhost:8080/board/getBoardList", send_param)
+      .post(process.env.REACT_APP_LOCAL_BACKEND + "/board/getBoardList", send_param)
       .then((returnData) => {
         let boardList;
         if (returnData.data.list.length > 0) {

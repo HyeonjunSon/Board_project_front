@@ -54,7 +54,7 @@ const BoardWriteForm = () => {
     };
   
     try {
-      const returnData = await axios.post("http://localhost:8080/board/write", send_param);
+      const returnData = await axios.post(process.env.REACT_APP_LOCAL_BACKEND + "/board/write", send_param);
       console.log("서버 응답 데이터: ", returnData.data);  // 서버 응답 확인
       if (returnData.data.message) {
         alert(returnData.data.message);

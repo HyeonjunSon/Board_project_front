@@ -26,7 +26,7 @@ class Header extends Component {
   
     logout = () => {
       axios
-        .get("http://localhost:8080/member/logout", {
+        .get(process.env.REACT_APP_LOCAL_BACKEND + "/member/logout", {
           headers
         })
         .then(returnData => {
