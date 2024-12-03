@@ -43,7 +43,6 @@ class LoginForm extends Component {
     }
 
     const send_param = {
-      headers,
       email: this.joinEmail.value,
       name: this.joinName.value,
       password: this.joinPw.value,
