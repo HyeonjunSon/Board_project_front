@@ -4,8 +4,8 @@ import ReCAPTCHA from "react-google-recaptcha"; // 변경된 부분
 import axios from "axios";
 import $ from "jquery";
 import {} from "jquery.cookie";
+
 axios.defaults.withCredentials = true;
-const headers = { withCredentials: true };
 
 class LoginForm extends Component {
   recaptchaRef = React.createRef(); // 새로운 recaptchaRef 추가
@@ -87,7 +87,6 @@ class LoginForm extends Component {
     }
 
     const send_param = {
-      headers,
       email: this.loginEmail.value,
       password: this.loginPw.value,
     };
