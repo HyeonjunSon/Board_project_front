@@ -23,33 +23,33 @@ const BoardDetail = () => {
         if (returnData.data.board) {
           setBoard(returnData.data.board);
         } else {
-          alert("글 상세 조회 실패");
+          alert("Failed to look up text details");
         }
       })
       .catch((err) => {
         console.log(err);
-        alert("글 상세 조회 중 오류 발생");
+        alert("Error checking text details");
       });
   };
 
   const deleteBoard = (_id) => {
     const send_param = { _id };
-    if (window.confirm("정말 삭제하시겠습니까?")) {
+    if (window.confirm("Are you sure you want to delete it?")) {
       axios
         .post(`${process.env.REACT_APP_DOMAIN_BACKEND}/board/delete`, send_param)
         .then(() => {
-          alert("게시글이 삭제 되었습니다.");
+          alert("Your post has been deleted.");
           window.location.href = "/";
         })
         .catch((err) => {
           console.log(err);
-          alert("글 삭제 실패");
+          alert("Failed to delete text");
         });
     }
   };
 
   if (!board) {
-    return <div style={{ margin: 50 }}>로딩 중...</div>;
+    return <div style={{ margin: 50 }}>Loading...</div>;
   }
 
   return (
@@ -75,11 +75,11 @@ const BoardDetail = () => {
           to={`/boardWrite?title=${encodeURIComponent(board.title)}&content=${encodeURIComponent(board.content)}&_id=${_id}`}
         >
           <Button className="btn-block" style={{ marginBottom: 5 }}>
-            글 수정
+          Revise your writing
           </Button>
         </NavLink>
         <Button className="btn-block" onClick={() => deleteBoard(_id)}>
-          글 삭제
+          Delete text
         </Button>
       </div>
     </div>

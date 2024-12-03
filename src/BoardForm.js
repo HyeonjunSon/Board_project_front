@@ -72,7 +72,7 @@ class BoardForm extends Component {
         } else {
           boardList = (
             <tr>
-              <td colSpan="2">작성한 게시글이 존재하지 않습니다.</td>
+              <td colSpan="2">The post you created does not exist.</td>
             </tr>
           );
           this.setState({
@@ -81,7 +81,7 @@ class BoardForm extends Component {
         }
       })
       .catch((err) => {
-        console.error("게시글 목록 가져오기 실패:", err);
+        console.error("Failed to get a list of posts:", err);
       });
   };
 
@@ -96,8 +96,8 @@ class BoardForm extends Component {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>날짜</th>
-                <th>글 제목</th>
+                <th>date</th>
+                <th>The title of the article</th>
               </tr>
             </thead>
             <tbody>{this.state.boardList}</tbody>
@@ -105,7 +105,7 @@ class BoardForm extends Component {
         </div>
         <div style={{ margin: "20px 50px" }}>
           <button onClick={() => (window.location.href = "/write")}>
-            글 작성
+          Writing
           </button>
         </div>
       </div>

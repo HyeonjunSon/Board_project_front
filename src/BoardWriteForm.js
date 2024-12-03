@@ -30,7 +30,7 @@ const BoardWriteForm = () => {
     const boardContent = data;
 
     if (!boardTitle || !boardContent) {
-      alert("제목과 내용을 모두 입력해주세요.");
+      alert("Please enter both the title and the content.");
       return;
     }
 
@@ -51,17 +51,17 @@ const BoardWriteForm = () => {
         send_param,
         { headers: { "Content-Type": "application/json" } }
       );
-      console.log("서버 응답 데이터: ", returnData.data); // 서버 응답 확인
+      console.log("Server Response Data: ", returnData.data); // 서버 응답 확인
       if (returnData.data.message) {
         alert(returnData.data.message);
         navigate("/");
         window.location.reload();
       } else {
-        alert("글 저장 실패");
+        alert("Failed to save text");
       }
     } catch (err) {
-      console.error("Axios 요청 에러: ", err);
-      alert("서버와의 통신 중 문제가 발생했습니다.");
+      console.error("Axios request error: ", err);
+      alert("There was a problem communicating with the server.");
     }
   };
 
@@ -71,16 +71,16 @@ const BoardWriteForm = () => {
 
   return (
     <div style={{ margin: "50px" }}>
-      <h2>글쓰기</h2>
+      <h2>Writing</h2>
       <Form.Control
         type="text"
-        placeholder="제목을 입력하세요"
+        placeholder="Please enter the title"
         style={{ marginBottom: "10px" }}
         ref={boardTitleRef}
       />
       <div style={{ marginBottom: "10px", border: "1px solid #ccc", padding: "10px" }}>
         <CKEditor
-          initData={data || "<p>여기에 글을 작성하세요...</p>"}
+          initData={data || "<p>Please write here...</p>"}
           config={{
             height: 300,
             toolbar: [
@@ -93,7 +93,7 @@ const BoardWriteForm = () => {
         />
       </div>
       <Button onClick={writeBoard} style={{ marginTop: "10px" }}>
-        저장하기
+      Save
       </Button>
     </div>
   );

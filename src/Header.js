@@ -32,7 +32,7 @@ class Header extends Component {
         .then(returnData => {
           if (returnData.data.message) {
             $.removeCookie("login_id");
-            alert("로그아웃 되었습니다!");
+            alert("You're logged out!");
             window.location.href = "/";
           }
         });
@@ -56,16 +56,16 @@ class Header extends Component {
               </NavLink> */}
               <NavLink to="/">
                 <Button style={buttonStyle} variant="primary">
-                  글목록
+                List of writings
                 </Button>
               </NavLink>
               <NavLink to="/boardWrite">
                 <Button style={buttonStyle} variant="primary">
-                  글쓰기
+                Writing
                 </Button>
               </NavLink>
               <Button style={buttonStyle} onClick={this.logout} variant="primary">
-                로그아웃
+              Sign out
               </Button>
             </Navbar.Collapse>
           </Navbar>

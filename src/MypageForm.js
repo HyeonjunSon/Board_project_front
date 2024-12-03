@@ -31,10 +31,10 @@ const MypageForm = () => {
           />
         </Form.Group>
         <Button variant="primary" className="btn-block" style={marginBottom}>
-          회원정보 수정
+        Modifying membership information
         </Button>
         <Button variant="primary" className="btn-block">
-          회원 탈퇴
+        Membership Withdrawal
         </Button>
       </div>
     </>

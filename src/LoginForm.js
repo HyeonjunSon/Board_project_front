@@ -62,7 +62,7 @@ class LoginForm extends Component {
             this.joinPw.value = "";
           }
         } else {
-          alert("회원가입 실패");
+          alert("Failed to sign up");
         }
       })
       .catch((err) => {
@@ -76,11 +76,11 @@ class LoginForm extends Component {
     const loginPw = this.loginPw.value;
 
     if (!loginEmail) {
-      alert("이메일 주소를 입력해주세요.");
+      alert("Please enter your email address.");
       this.loginEmail.focus();
       return;
     } else if (!loginPw) {
-      alert("비밀번호를 입력해주세요.");
+      alert("Please enter your password..");
       this.loginPw.focus();
       return;
     }
@@ -186,7 +186,7 @@ class LoginForm extends Component {
           type="button"
           className="btn-block"
         >
-          회원가입
+          Sign up
         </Button>
 
         <Form.Group controlId="loginFormEmail">
@@ -222,7 +222,7 @@ class LoginForm extends Component {
           type="button"
           className="btn-block"
         >
-          로그인
+          Login
         </Button>
       </Form>
     );
