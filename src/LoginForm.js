@@ -91,7 +91,14 @@ class LoginForm extends Component {
     };
 
     axios
-      .post(`${process.env.REACT_APP_DOMAIN_BACKEND}/member/login`, send_param)
+      .post(`${process.env.REACT_APP_DOMAIN_BACKEND}/member/login`, send_param,
+      {
+        headers: {
+          "Content-Type": "application/json", // 요청 데이터 형식 명시
+        },
+        withCredentials: true, // CORS로 쿠키를 주고받기 위한 설정
+      }
+    )
       .then((returnData) => {
         if (returnData.data.message) {
           $.cookie("login_id", returnData.data._id, { expires: 1 });
