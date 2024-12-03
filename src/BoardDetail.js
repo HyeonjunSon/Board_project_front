@@ -3,7 +3,6 @@ import { Table, Button } from "react-bootstrap";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const headers = { withCredentials: true };
 
 const BoardDetail = () => {
   const { _id } = useParams(); // useParams로 URL 파라미터 가져오기
@@ -19,7 +18,7 @@ const BoardDetail = () => {
 
   const getDetail = (_id) => {
     axios
-      .get(`${process.env.REACT_APP_DOMAIN_BACKEND}/board/detail/${_id}`, { headers })
+      .get(`${process.env.REACT_APP_DOMAIN_BACKEND}/board/detail/${_id}`)
       .then((returnData) => {
         if (returnData.data.board) {
           setBoard(returnData.data.board);
@@ -34,7 +33,7 @@ const BoardDetail = () => {
   };
 
   const deleteBoard = (_id) => {
-    const send_param = { headers, _id };
+    const send_param = { _id };
     if (window.confirm("정말 삭제하시겠습니까?")) {
       axios
         .post(`${process.env.REACT_APP_DOMAIN_BACKEND}/board/delete`, send_param)
@@ -73,10 +72,7 @@ const BoardDetail = () => {
       </Table>
       <div>
         <NavLink
-          to={{
-            pathname: "/boardWrite",
-            search: `?title=${encodeURIComponent(board.title)}&content=${encodeURIComponent(board.content)}&_id=${_id}`,
-          }}
+          to={`/boardWrite?title=${encodeURIComponent(board.title)}&content=${encodeURIComponent(board.content)}&_id=${_id}`}
         >
           <Button className="btn-block" style={{ marginBottom: 5 }}>
             글 수정
