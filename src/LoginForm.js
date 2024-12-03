@@ -93,7 +93,7 @@ class LoginForm extends Component {
     };
 
     axios
-      .post(`${process.env.REACT_APP_LOCAL_BACKEND}/member/login`, send_param)
+      .post(`${process.env.REACT_APP_DOMAIN_BACKEND}/member/login`, send_param)
       .then((returnData) => {
         if (returnData.data.message) {
           $.cookie("login_id", returnData.data._id, { expires: 1 });
