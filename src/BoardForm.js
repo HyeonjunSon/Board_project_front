@@ -50,7 +50,7 @@ class BoardForm extends Component {
 
     axios
       .post(
-        `${process.env.REACT_APP_LOCAL_BACKEND}/board/getBoardList`,
+        `${process.env.REACT_APP_DOMAIN_BACKEND}/board/getBoardList`,
         { _id: idFromCookie },
         { headers: { "Content-Type": "application/json" } }
       )

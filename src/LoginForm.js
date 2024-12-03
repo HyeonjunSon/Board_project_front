@@ -49,7 +49,7 @@ class LoginForm extends Component {
     };
 
     axios
-      .post(`${process.env.REACT_APP_LOCAL_BACKEND}/member/Join`, send_param)
+      .post(`${process.env.REACT_APP_DOMAIN_BACKEND}/member/Join`, send_param)
       .then((returnData) => {
         if (returnData.data.message) {
           alert(returnData.data.message);

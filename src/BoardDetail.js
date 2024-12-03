@@ -19,7 +19,7 @@ const BoardDetail = () => {
 
   const getDetail = (_id) => {
     axios
-      .get(`${process.env.REACT_APP_LOCAL_BACKEND}/board/detail/${_id}`, { headers })
+      .get(`${process.env.REACT_APP_DOMAIN_BACKEND}/board/detail/${_id}`, { headers })
       .then((returnData) => {
         if (returnData.data.board) {
           setBoard(returnData.data.board);
@@ -37,7 +37,7 @@ const BoardDetail = () => {
     const send_param = { headers, _id };
     if (window.confirm("정말 삭제하시겠습니까?")) {
       axios
-        .post(`${process.env.REACT_APP_LOCAL_BACKEND}/board/delete`, send_param)
+        .post(`${process.env.REACT_APP_DOMAIN_BACKEND}/board/delete`, send_param)
         .then(() => {
           alert("게시글이 삭제 되었습니다.");
           window.location.href = "/";
