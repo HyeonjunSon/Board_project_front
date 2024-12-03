@@ -47,7 +47,7 @@ const BoardWriteForm = () => {
 
     try {
       const returnData = await axios.post(
-        `${process.env.REACT_APP_LOCAL_BACKEND}/board/write`,
+        `${process.env.REACT_APP_DOMAIN_BACKEND}/board/write`,
         send_param,
         { headers: { "Content-Type": "application/json" } }
       );
