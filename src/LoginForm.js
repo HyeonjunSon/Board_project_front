@@ -19,24 +19,24 @@ class LoginForm extends Component {
     const regExp2 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
   
     if (!joinEmail) {
-      alert("이메일 주소를 입력해주세요.");
+      alert("Please enter your email address.");
       this.joinEmail.focus();
       return;
     } else if (!joinEmail.match(regExp)) {
-      alert("이메일 형식에 맞게 입력해주세요.");
+      alert("Please enter it according to the email format.");
       this.joinEmail.value = "";
       this.joinEmail.focus();
       return;
     } else if (!joinName) {
-      alert("이름을 입력해주세요.");
+      alert("Please enter your name.");
       this.joinName.focus();
       return;
     } else if (!joinPw) {
-      alert("비밀번호를 입력해주세요.");
+      alert("Please enter your password.");
       this.joinPw.focus();
       return;
     } else if (!joinPw.match(regExp2)) {
-      alert("비밀번호를 숫자와 문자, 특수문자 포함 8~16자리로 입력해주세요.");
+      alert("Please enter the password as 8 to 16 digits including numbers, letters, and special characters.");
       this.joinPw.value = "";
       this.joinPw.focus();
       return;
